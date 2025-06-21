@@ -14,7 +14,7 @@ CREATE TABLE "users" (
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
-CREATE TABLE "job_listings" (
+CREATE TABLE "jobListings" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"organizationId" varchar NOT NULL,
 	"title" varchar NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE "job_listings" (
 	"updatedAt" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE "job_listing_applications" (
+CREATE TABLE "jobListingApplications" (
 	"job_listing_id" uuid NOT NULL,
 	"userId" varchar NOT NULL,
 	"coverLetter" text,
@@ -41,7 +41,7 @@ CREATE TABLE "job_listing_applications" (
 	"stage" "job_listing_application_status" DEFAULT 'applied' NOT NULL,
 	"createdAt" timestamp with time zone DEFAULT now() NOT NULL,
 	"updatedAt" timestamp with time zone DEFAULT now() NOT NULL,
-	CONSTRAINT "job_listing_applications_job_listing_id_userId_pk" PRIMARY KEY("job_listing_id","userId")
+	CONSTRAINT "jobListingApplications_job_listing_id_userId_pk" PRIMARY KEY("job_listing_id","userId")
 );
 --> statement-breakpoint
 CREATE TABLE "organizations" (
@@ -52,7 +52,17 @@ CREATE TABLE "organizations" (
 	"updatedAt" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE "organization_user_settings" (
+CREATE TABLE "organizationUserSettings" (
+	"organizationId" varchar NOT NULL,
+	"userId" varchar NOT NULL,
+	"newApplicationEmailNotifications" boolean DEFAULT false NOT NULL,
+	"minimunRating" integer DEFAULT 0 NOT NULL,
+	"createdAt" timestamp with time zone DEFAULT now() NOT NULL,
+	"updatedAt" timestamp with time zone DEFAULT now() NOT NULL,
+	CONSTRAINT "organizationUserSettings_userId_organizationId_pk" PRIMARY KEY("userId","organizationId")
+);
+--> statement-breakpoint
+CREATE TABLE "userNotificationSettings" (
 	"userId" varchar NOT NULL,
 	"newJobEmailNotifications" boolean DEFAULT false NOT NULL,
 	"aiPrompt" varchar,
@@ -60,7 +70,7 @@ CREATE TABLE "organization_user_settings" (
 	"updatedAt" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE "user_resumes" (
+CREATE TABLE "userResumes" (
 	"userId" varchar PRIMARY KEY NOT NULL,
 	"resumeFileUrl" varchar NOT NULL,
 	"resumeFileKey" varchar NOT NULL,
@@ -69,9 +79,11 @@ CREATE TABLE "user_resumes" (
 	"updatedAt" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-ALTER TABLE "job_listings" ADD CONSTRAINT "job_listings_organizationId_organizations_id_fk" FOREIGN KEY ("organizationId") REFERENCES "public"."organizations"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "job_listing_applications" ADD CONSTRAINT "job_listing_applications_job_listing_id_job_listings_id_fk" FOREIGN KEY ("job_listing_id") REFERENCES "public"."job_listings"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "job_listing_applications" ADD CONSTRAINT "job_listing_applications_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "organization_user_settings" ADD CONSTRAINT "organization_user_settings_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "user_resumes" ADD CONSTRAINT "user_resumes_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-CREATE INDEX "job_listings_stateAbreviation_index" ON "job_listings" USING btree ("stateAbreviation");
+ALTER TABLE "jobListings" ADD CONSTRAINT "jobListings_organizationId_organizations_id_fk" FOREIGN KEY ("organizationId") REFERENCES "public"."organizations"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "jobListingApplications" ADD CONSTRAINT "jobListingApplications_job_listing_id_jobListings_id_fk" FOREIGN KEY ("job_listing_id") REFERENCES "public"."jobListings"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "jobListingApplications" ADD CONSTRAINT "jobListingApplications_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "organizationUserSettings" ADD CONSTRAINT "organizationUserSettings_organizationId_organizations_id_fk" FOREIGN KEY ("organizationId") REFERENCES "public"."organizations"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "organizationUserSettings" ADD CONSTRAINT "organizationUserSettings_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "userNotificationSettings" ADD CONSTRAINT "userNotificationSettings_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "userResumes" ADD CONSTRAINT "userResumes_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+CREATE INDEX "jobListings_stateAbreviation_index" ON "jobListings" USING btree ("stateAbreviation");

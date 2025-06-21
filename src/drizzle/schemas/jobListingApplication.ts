@@ -9,7 +9,7 @@ export const applicationStatuses = ["applied", "interviewing", "interested", "re
 export type ApplicationStatus = (typeof applicationStatuses)[number];
 export const applicationStatusEnum = pgEnum("job_listing_application_status", applicationStatuses);
 
-export const jobListingApplicationTable = pgTable("job_listing_applications", {
+export const jobListingApplicationTable = pgTable("jobListingApplications", {
     jobListingId: uuid("job_listing_id").references(() => jobListingTable.id, { onDelete: "cascade" }).notNull(),
     userId: varchar().references(() => userTable.id, { onDelete: "cascade" }).notNull(),
     coverLetter: text(),

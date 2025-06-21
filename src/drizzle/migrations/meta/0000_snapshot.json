@@ -1,5 +1,5 @@
 {
-  "id": "c02e7a7a-30e9-416a-861e-ad4225cb697f",
+  "id": "46926e13-949d-406c-9591-0c761ee7c350",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -63,8 +63,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.job_listings": {
-      "name": "job_listings",
+    "public.jobListings": {
+      "name": "jobListings",
       "schema": "",
       "columns": {
         "id": {
@@ -174,8 +174,8 @@
         }
       },
       "indexes": {
-        "job_listings_stateAbreviation_index": {
-          "name": "job_listings_stateAbreviation_index",
+        "jobListings_stateAbreviation_index": {
+          "name": "jobListings_stateAbreviation_index",
           "columns": [
             {
               "expression": "stateAbreviation",
@@ -191,9 +191,9 @@
         }
       },
       "foreignKeys": {
-        "job_listings_organizationId_organizations_id_fk": {
-          "name": "job_listings_organizationId_organizations_id_fk",
-          "tableFrom": "job_listings",
+        "jobListings_organizationId_organizations_id_fk": {
+          "name": "jobListings_organizationId_organizations_id_fk",
+          "tableFrom": "jobListings",
           "tableTo": "organizations",
           "columnsFrom": [
             "organizationId"
@@ -211,8 +211,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.job_listing_applications": {
-      "name": "job_listing_applications",
+    "public.jobListingApplications": {
+      "name": "jobListingApplications",
       "schema": "",
       "columns": {
         "job_listing_id": {
@@ -264,10 +264,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "job_listing_applications_job_listing_id_job_listings_id_fk": {
-          "name": "job_listing_applications_job_listing_id_job_listings_id_fk",
-          "tableFrom": "job_listing_applications",
-          "tableTo": "job_listings",
+        "jobListingApplications_job_listing_id_jobListings_id_fk": {
+          "name": "jobListingApplications_job_listing_id_jobListings_id_fk",
+          "tableFrom": "jobListingApplications",
+          "tableTo": "jobListings",
           "columnsFrom": [
             "job_listing_id"
           ],
@@ -277,9 +277,9 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "job_listing_applications_userId_users_id_fk": {
-          "name": "job_listing_applications_userId_users_id_fk",
-          "tableFrom": "job_listing_applications",
+        "jobListingApplications_userId_users_id_fk": {
+          "name": "jobListingApplications_userId_users_id_fk",
+          "tableFrom": "jobListingApplications",
           "tableTo": "users",
           "columnsFrom": [
             "userId"
@@ -292,8 +292,8 @@
         }
       },
       "compositePrimaryKeys": {
-        "job_listing_applications_job_listing_id_userId_pk": {
-          "name": "job_listing_applications_job_listing_id_userId_pk",
+        "jobListingApplications_job_listing_id_userId_pk": {
+          "name": "jobListingApplications_job_listing_id_userId_pk",
           "columns": [
             "job_listing_id",
             "userId"
@@ -350,8 +350,96 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.organization_user_settings": {
-      "name": "organization_user_settings",
+    "public.organizationUserSettings": {
+      "name": "organizationUserSettings",
+      "schema": "",
+      "columns": {
+        "organizationId": {
+          "name": "organizationId",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "newApplicationEmailNotifications": {
+          "name": "newApplicationEmailNotifications",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "minimunRating": {
+          "name": "minimunRating",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "organizationUserSettings_organizationId_organizations_id_fk": {
+          "name": "organizationUserSettings_organizationId_organizations_id_fk",
+          "tableFrom": "organizationUserSettings",
+          "tableTo": "organizations",
+          "columnsFrom": [
+            "organizationId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "organizationUserSettings_userId_users_id_fk": {
+          "name": "organizationUserSettings_userId_users_id_fk",
+          "tableFrom": "organizationUserSettings",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "organizationUserSettings_userId_organizationId_pk": {
+          "name": "organizationUserSettings_userId_organizationId_pk",
+          "columns": [
+            "userId",
+            "organizationId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.userNotificationSettings": {
+      "name": "userNotificationSettings",
       "schema": "",
       "columns": {
         "userId": {
@@ -390,9 +478,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "organization_user_settings_userId_users_id_fk": {
-          "name": "organization_user_settings_userId_users_id_fk",
-          "tableFrom": "organization_user_settings",
+        "userNotificationSettings_userId_users_id_fk": {
+          "name": "userNotificationSettings_userId_users_id_fk",
+          "tableFrom": "userNotificationSettings",
           "tableTo": "users",
           "columnsFrom": [
             "userId"
@@ -410,8 +498,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.user_resumes": {
-      "name": "user_resumes",
+    "public.userResumes": {
+      "name": "userResumes",
       "schema": "",
       "columns": {
         "userId": {
@@ -455,9 +543,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "user_resumes_userId_users_id_fk": {
-          "name": "user_resumes_userId_users_id_fk",
-          "tableFrom": "user_resumes",
+        "userResumes_userId_users_id_fk": {
+          "name": "userResumes_userId_users_id_fk",
+          "tableFrom": "userResumes",
           "tableTo": "users",
           "columnsFrom": [
             "userId"

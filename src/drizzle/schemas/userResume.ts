@@ -4,7 +4,7 @@ import { pgTable, varchar } from "drizzle-orm/pg-core";
 import { userTable } from "./user";
 import { relations } from "drizzle-orm";
 
-export const userResumeTable = pgTable("user_resumes", {
+export const userResumeTable = pgTable("userResumes", {
     userId: varchar().notNull().primaryKey().references(() => userTable.id, { onDelete: "cascade" }),
     resumeFileUrl: varchar().notNull(),
     resumeFileKey: varchar().notNull(),

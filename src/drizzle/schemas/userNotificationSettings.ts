@@ -3,7 +3,7 @@ import { createdAt, updatedAt } from "../schemaHelpers";;
 import { userTable } from "./user";
 import { relations } from "drizzle-orm";
 
-export const UserNotificationSettingsTable = pgTable("organization_user_settings", {
+export const UserNotificationSettingsTable = pgTable("userNotificationSettings", {
     userId: varchar().notNull().references(() => userTable.id),
     newJobEmailNotifications: boolean().notNull().default(false),
     aiPrompt: varchar(),

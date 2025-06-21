@@ -1,8 +1,8 @@
 import { varchar, pgTable} from 'drizzle-orm/pg-core';
 import { createdAt, updatedAt } from '../schemaHelpers';
 import { relations } from "drizzle-orm";
-import { jobListingTable } from "./jobListing"; // Adjust the path as needed
-import { organizationUserSettingsTable } from "./organizationUserSettings"; // Adjust the path as needed
+import { jobListingTable } from "./jobListing"; 
+import { organizationUserSettingsTable } from "./organizationUserSettings"; 
 
 export const organizationTable = pgTable( 'organizations', {
     id: varchar().primaryKey(),

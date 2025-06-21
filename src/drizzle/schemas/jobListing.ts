@@ -26,7 +26,7 @@ export const jobListingTypeEnum = pgEnum("job_listing_type", jobListingTypes);
 
 
 
-export const jobListingTable = pgTable("job_listings", {
+export const jobListingTable = pgTable("jobListings", {
     id,
     organizationId: varchar().references( () => organizationTable.id, 
     { onDelete: "cascade" }).notNull(),
