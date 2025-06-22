@@ -25,7 +25,7 @@ import {
   SidebarTrigger,
   useSidebar
 } from "@/components/ui/sidebar";
-import { appSidebarClient as AppSidebarClient } from "./_appSidebarClient";
+import { AppSidebarClient as AppSidebarClient } from "../components/sidebar/_appSidebarClient";
 
 
 export default function Home() {

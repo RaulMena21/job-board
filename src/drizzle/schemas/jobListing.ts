@@ -16,9 +16,9 @@ export const experienceLevels = ["junior", "mid", "senior"] as const;
 export type ExperienceLevel = (typeof experienceLevels)[number];
 export const experienceLevelEnum = pgEnum("job_listing_experience_level", experienceLevels);
 
-export const jobListingStatuses = ["published", "delisted", "draft"] as const;
-export type JobListingStatus = (typeof jobListingStatuses)[number];
-export const jobListingStatusEnum = pgEnum("job_listing_status", jobListingStatuses);
+export const jobListingStatus = ["published", "delisted", "draft"] as const;
+export type JobListingStatus = (typeof jobListingStatus)[number];
+export const jobListingStatusEnum = pgEnum("job_listing_status", jobListingStatus);
 
 export const jobListingTypes = ["full-time", "part-time", "internship"] as const;
 export type JobListingType = (typeof jobListingTypes)[number];
