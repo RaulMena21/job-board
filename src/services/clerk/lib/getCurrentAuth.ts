@@ -1,5 +1,5 @@
 import { db } from "@/drizzle/db"
-import { OrganizationTable, UserTable } from "@/drizzle/schema"
+import { organizationTable, userTable } from "@/drizzle/schema"
 import { getOrganizationIdTag } from "@/features/organizations/db/cache/organizations"
 import { getUserIdTag } from "@/features/users/db/cache/users"
 import { auth } from "@clerk/nextjs/server"
@@ -29,8 +29,8 @@ async function getUser(id: string) {
   "use cache"
   cacheTag(getUserIdTag(id))
 
-  return db.query.UserTable.findFirst({
-    where: eq(UserTable.id, id),
+  return db.query.userTable.findFirst({
+    where: eq(userTable.id, id),
   })
 }
 
@@ -38,7 +38,7 @@ async function getOrganization(id: string) {
   "use cache"
   cacheTag(getOrganizationIdTag(id))
 
-  return db.query.OrganizationTable.findFirst({
-    where: eq(OrganizationTable.id, id),
+  return db.query.organizationTable.findFirst({
+    where: eq(organizationTable.id, id),
   })
 }

@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import { SidebarUserButtonClient } from "./_sidebarUserButtonClient"
-// import { getCurrentUser } from "@/services/clerk/lib/getCurrentAuth"
+import { getCurrentUser } from "@/services/clerk/lib/getCurrentAuth"
 import { SignOutButton } from "@/services/clerk/components/authButtons"
 import { SidebarMenuButton } from "@/components/ui/sidebar"
 import { LogOutIcon } from "lucide-react"

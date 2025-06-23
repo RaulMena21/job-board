@@ -1,12 +1,12 @@
 import { db } from "@/drizzle/db"
-import { UserNotificationSettingsTable } from "@/drizzle/schema"
+import { userNotificationSettingsTable } from "@/drizzle/schema"
 import { revalidateUserNotificationSettingsCache } from "./cache/userNotificationSettings"
 
 export async function insertUserNotificationSettings(
-  settings: typeof UserNotificationSettingsTable.$inferInsert
+  settings: typeof userNotificationSettingsTable.$inferInsert
 ) {
   await db
-    .insert(UserNotificationSettingsTable)
+    .insert(userNotificationSettingsTable)
     .values(settings)
     .onConflictDoNothing()
 
@@ -16,14 +16,14 @@ export async function insertUserNotificationSettings(
 export async function updateUserNotificationSettings(
   userId: string,
   settings: Partial<
-    Omit<typeof UserNotificationSettingsTable.$inferInsert, "userId">
+    Omit<typeof userNotificationSettingsTable.$inferInsert, "userId">
   >
 ) {
   await db
-    .insert(UserNotificationSettingsTable)
+    .insert(userNotificationSettingsTable)
     .values({ ...settings, userId })
     .onConflictDoUpdate({
-      target: UserNotificationSettingsTable.userId,
+      target: userNotificationSettingsTable.userId,
       set: settings,
     })
 

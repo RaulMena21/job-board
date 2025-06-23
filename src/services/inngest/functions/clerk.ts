@@ -51,7 +51,7 @@ export const clerkCreateUser = inngest.createFunction(
       await insertUser({
         id: userData.id,
         name: `${userData.first_name} ${userData.last_name}`,
-        imageUrl: userData.image_url,
+        imgUrl: userData.image_url,
         email: email.email_address,
         createdAt: new Date(userData.created_at),
         updatedAt: new Date(userData.updated_at),
@@ -90,7 +90,7 @@ export const clerkUpdateUser = inngest.createFunction(
 
       await updateUser(userData.id, {
         name: `${userData.first_name} ${userData.last_name}`,
-        imageUrl: userData.image_url,
+        imgUrl: userData.image_url,
         email: email.email_address,
         updatedAt: new Date(userData.updated_at),
       })
@@ -144,7 +144,7 @@ export const clerkCreateOrganization = inngest.createFunction(
       await insertOrganization({
         id: orgData.id,
         name: orgData.name,
-        imageUrl: orgData.image_url,
+        imgUrl: orgData.image_url,
         createdAt: new Date(orgData.created_at),
         updatedAt: new Date(orgData.updated_at),
       })
@@ -172,7 +172,7 @@ export const clerkUpdateOrganization = inngest.createFunction(
 
       await updateOrganization(orgData.id, {
         name: orgData.name,
-        imageUrl: orgData.image_url,
+        imgUrl: orgData.image_url,
         updatedAt: new Date(orgData.updated_at),
       })
     })

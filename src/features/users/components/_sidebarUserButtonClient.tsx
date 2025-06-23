@@ -22,7 +22,7 @@ import Link from "next/link"
 
 type User = {
   name: string
-  imageUrl: string
+  imgUrl: string
   email: string
 }
 
@@ -75,7 +75,7 @@ export function SidebarUserButtonClient({ user }: { user: User }) {
   )
 }
 
-function UserInfo({ imageUrl, email, name }: User) {
+function UserInfo({ imgUrl, email, name }: User) {
   const nameInitials = name
     .split(" ")
     .slice(0, 2)
@@ -85,7 +85,7 @@ function UserInfo({ imageUrl, email, name }: User) {
   return (
     <div className="flex items-center gap-2 overflow-hidden">
       <Avatar className="rounded-lg size-8">
-        <AvatarImage src={imageUrl} alt={name} />
+        <AvatarImage src={imgUrl} alt={name} />
         <AvatarFallback className="uppercase bg-primary text-primary-foreground">
           {nameInitials}
         </AvatarFallback>
