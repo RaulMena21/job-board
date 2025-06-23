@@ -12,7 +12,7 @@ export const locationRequirements = ["remote", "on-site", "hybrid"] as const;
 export type LocationRequirement = (typeof locationRequirements)[number];
 export const locationRequirementEnum = pgEnum("job_listing_location_requirement", locationRequirements);
 
-export const experienceLevels = ["junior", "mid", "senior"] as const;
+export const experienceLevels = ["junior", "mid-level", "senior"] as const;
 export type ExperienceLevel = (typeof experienceLevels)[number];
 export const experienceLevelEnum = pgEnum("job_listing_experience_level", experienceLevels);
 
@@ -26,7 +26,7 @@ export const jobListingTypeEnum = pgEnum("job_listing_type", jobListingTypes);
 
 
 
-export const jobListingTable = pgTable("jobListings", {
+export const JobListingTable = pgTable("jobListings", {
     id,
     organizationId: varchar().references( () => organizationTable.id, 
     { onDelete: "cascade" }).notNull(),
@@ -50,10 +50,10 @@ table => [index().on(table.stateAbreviation)])
 
 
 export const jobListingRelations = relations(
-  jobListingTable,
+  JobListingTable,
   ({ one, many }) => ({
     organization: one(organizationTable, {
-      fields: [jobListingTable.organizationId],
+      fields: [JobListingTable.organizationId],
       references: [organizationTable.id],
     }),
     applications: many(jobListingApplicationTable),

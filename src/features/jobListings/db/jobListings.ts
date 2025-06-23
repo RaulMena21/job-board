@@ -1,17 +1,17 @@
 import { db } from "@/drizzle/db"
-import { jobListingTable } from "@/drizzle/schema"
+import { JobListingTable } from "@/drizzle/schema"
 import { revalidateJobListingCache } from "./cache/jobListings"
 import { eq } from "drizzle-orm"
 
 export async function insertJobListing(
-  jobListing: typeof jobListingTable.$inferInsert
+  jobListing: typeof JobListingTable.$inferInsert
 ) {
   const [newListing] = await db
-    .insert(jobListingTable)
+    .insert(JobListingTable)
     .values(jobListing)
     .returning({
-      id: jobListingTable.id,
-      organizationId: jobListingTable.organizationId,
+      id: JobListingTable.id,
+      organizationId: JobListingTable.organizationId,
     })
 
   revalidateJobListingCache(newListing)
@@ -21,15 +21,15 @@ export async function insertJobListing(
 
 export async function updateJobListing(
   id: string,
-  jobListing: Partial<typeof jobListingTable.$inferInsert>
+  jobListing: Partial<typeof JobListingTable.$inferInsert>
 ) {
   const [updatedListing] = await db
-    .update(jobListingTable)
+    .update(JobListingTable)
     .set(jobListing)
-    .where(eq(jobListingTable.id, id))
+    .where(eq(JobListingTable.id, id))
     .returning({
-      id: jobListingTable.id,
-      organizationId: jobListingTable.organizationId,
+      id: JobListingTable.id,
+      organizationId: JobListingTable.organizationId,
     })
 
   revalidateJobListingCache(updatedListing)
@@ -39,11 +39,11 @@ export async function updateJobListing(
 
 export async function deleteJobListing(id: string) {
   const [deletedJobListing] = await db
-    .delete(jobListingTable)
-    .where(eq(jobListingTable.id, id))
+    .delete(JobListingTable)
+    .where(eq(JobListingTable.id, id))
     .returning({
-      id: jobListingTable.id,
-      organizationId: jobListingTable.organizationId,
+      id: JobListingTable.id,
+      organizationId: JobListingTable.organizationId,
     })
 
   revalidateJobListingCache(deletedJobListing)

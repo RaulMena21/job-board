@@ -1,4 +1,4 @@
-import { jobListingApplicationTable, jobListingTable } from "@/drizzle/schema"
+import { jobListingApplicationTable, JobListingTable } from "@/drizzle/schema"
 import {
   DeletedObjectJSON,
   OrganizationJSON,
@@ -39,7 +39,7 @@ type Events = {
     data: {
       aiPrompt?: string
       jobListings: (Omit<
-        typeof jobListingTable.$inferSelect,
+        typeof JobListingTable.$inferSelect,
         "createdAt" | "postedAt" | "updatedAt" | "status" | "organizationId"
       > & { organizationName: string })[]
     }
