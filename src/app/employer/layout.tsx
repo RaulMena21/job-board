@@ -1,4 +1,4 @@
-import { AsyncIf } from "@/components/AsyncIf"
+import { AsyncIf } from "@/components/Asyncif"
 import { AppSidebar } from "@/components/sidebar/appSidebar"
 import { SidebarNavMenuGroup } from "@/components/sidebar/sidebarNavMenuGroup"
 import {
@@ -14,12 +14,12 @@ import { db } from "@/drizzle/db"
 import {
   jobListingApplicationTable,
   JobListingStatus,
-  jobListingTable,
+  JobListingTable,
 } from "@/drizzle/schema"
 import { getJobListingApplicationJobListingTag } from "@/features/jobListingApplications/db/cache/jobListingApplications"
 import { getJobListingOrganizationTag } from "@/features/jobListings/db/cache/jobListings"
 import { sortJobListingsByStatus } from "@/features/jobListings/lib/utils"
-import { SidebarOrganizationButton } from "@/features/organizations/components/SidebarOrganizationButton"
+import { SidebarOrganizationButton } from "@/features/organizations/components/sidebarOrganizationButton"
 import { getCurrentOrganization } from "@/services/clerk/lib/getCurrentAuth"
 import { hasOrgUserPermission } from "@/services/clerk/lib/orgUserPermissions"
 import { count, desc, eq } from "drizzle-orm"
@@ -28,7 +28,7 @@ import { cacheTag } from "next/dist/server/use-cache/cache-tag"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { ReactNode, Suspense } from "react"
-import { JobListingMenuGroup } from "./_JobListingMenugroup"
+import { JobListingMenuGroup } from "./_jobListingMenugroup"
 
 export default function EmployerLayout({ children }: { children: ReactNode }) {
   return (
@@ -121,19 +121,19 @@ async function getJobListings(orgId: string) {
 
   const data = await db
     .select({
-      id: jobListingTable.id,
-      title: jobListingTable.title,
-      status: jobListingTable.status,
+      id: JobListingTable.id,
+      title: JobListingTable.title,
+      status: JobListingTable.status,
       applicationCount: count(jobListingApplicationTable.userId),
     })
-    .from(jobListingTable)
-    .where(eq(jobListingTable.organizationId, orgId))
+    .from(JobListingTable)
+    .where(eq(JobListingTable.organizationId, orgId))
     .leftJoin(
       jobListingApplicationTable,
-      eq(jobListingTable.id, jobListingApplicationTable.jobListingId)
+      eq(JobListingTable.id, jobListingApplicationTable.jobListingId)
     )
-    .groupBy(jobListingApplicationTable.jobListingId, jobListingTable.id)
-    .orderBy(desc(jobListingTable.createdAt))
+    .groupBy(jobListingApplicationTable.jobListingId, JobListingTable.id)
+    .orderBy(desc(JobListingTable.createdAt))
 
   data.forEach(jobListing => {
     cacheTag(getJobListingApplicationJobListingTag(jobListing.id))

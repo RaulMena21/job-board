@@ -1,6 +1,6 @@
-import { AppSidebar } from "@/components/sidebar/AppSidebar"
-import { SidebarNavMenuGroup } from "@/components/sidebar/SidebarNavMenuGroup"
-import { SidebarUserButton } from "@/features/users/components/SidebarUserButton"
+import { AppSidebar } from "@/components/sidebar/appSidebar"
+import { SidebarNavMenuGroup } from "@/components/sidebar/sidebarNavMenuGroup"
+import { SidebarUserButton } from "@/features/users/components/sidebarUserButton"
 import {
   BrainCircuitIcon,
   ClipboardListIcon,
