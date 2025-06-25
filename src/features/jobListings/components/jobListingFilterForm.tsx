@@ -33,7 +33,7 @@ import {
   formatJobType,
   formatLocationRequirement,
 } from "../lib/formatters"
-import { StateSelectItems } from "./StateSelectItems"
+import { StateSelectItems } from "./stateSelectItems"
 import { Button } from "@/components/ui/button"
 import { LoadingSwap } from "@/components/loadingSwap"
 import { useSidebar } from "@/components/ui/sidebar"
