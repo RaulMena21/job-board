@@ -2,10 +2,10 @@
 
 import { db } from "@/drizzle/db"
 import {
-  ApplicationStage,
-  applicationStages,
+  ApplicationStatus,
+  applicationStatuses,
   JobListingTable,
-  UserResumeTable,
+  userResumeTable,
 } from "@/drizzle/schema"
 import { getJobListingIdTag } from "@/features/jobListings/db/cache/jobListings"
 import { getUserResumeIdTag } from "@/features/users/db/cache/userResumes"
@@ -67,7 +67,7 @@ export async function createJobListingApplication(
   }
 }
 
-export async function updateJobListingApplicationStage(
+export async function updateJobListingApplicationStatus(
   {
     jobListingId,
     userId,
@@ -75,10 +75,10 @@ export async function updateJobListingApplicationStage(
     jobListingId: string
     userId: string
   },
-  unsafeStage: ApplicationStage
+  unsafeStage: ApplicationStatus
 ) {
   const { success, data: stage } = z
-    .enum(applicationStages)
+    .enum(applicationStatuses)
     .safeParse(unsafeStage)
 
   if (!success) {
@@ -201,8 +201,8 @@ async function getUserResume(userId: string) {
   "use cache"
   cacheTag(getUserResumeIdTag(userId))
 
-  return db.query.UserResumeTable.findFirst({
-    where: eq(UserResumeTable.userId, userId),
+  return db.query.userResumeTable.findFirst({
+    where: eq(userResumeTable.userId, userId),
     columns: { userId: true },
   })
 }

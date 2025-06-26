@@ -23,7 +23,7 @@ import { Suspense } from "react"
 import { differenceInDays } from "date-fns"
 import { connection } from "next/server"
 import { Badge } from "@/components/ui/badge"
-import { JobListingBadges } from "@/features/jobListings/components/JobListingBadges"
+import { JobListingBadges } from "@/features/jobListings/components/jobListingBadges"
 import { optional, z } from "zod"
 import { cacheTag } from "next/dist/server/use-cache/cache-tag"
 import { getJobListingGlobalTag } from "@/features/jobListings/db/cache/jobListings"
@@ -105,7 +105,7 @@ function JobListingListItem({
     | "locationRequirement"
     | "isFeatured"
   >
-  organization: Pick<typeof organizationTable.$inferSelect, "name" | "imageUrl">
+  organization: Pick<typeof organizationTable.$inferSelect, "name" | "imgUrl">
 }) {
   const nameInitials = organization?.name
     .split(" ")
@@ -124,7 +124,7 @@ function JobListingListItem({
         <div className="flex gap-4">
           <Avatar className="size-14 @max-sm:hidden">
             <AvatarImage
-              src={organization.imageUrl ?? undefined}
+              src={organization.imgUrl ?? undefined}
               alt={organization.name}
             />
             <AvatarFallback className="uppercase bg-primary text-primary-foreground">
@@ -238,7 +238,7 @@ async function getJobListings(
         columns: {
           id: true,
           name: true,
-          imageUrl: true,
+          imgUrl: true,
         },
       },
     },

@@ -28,13 +28,13 @@ export const jobListingTypeEnum = pgEnum("job_listing_type", jobListingTypes);
 
 export const JobListingTable = pgTable("jobListings", {
     id,
-    organizationId: varchar().references( () => organizationTable.id, 
+    organization: varchar().references( () => organizationTable.id, 
     { onDelete: "cascade" }).notNull(),
     title: varchar().notNull(),
     description: text().notNull(),
         wage: integer(),
         wageInterval: wageIntervalEnum(),
-        stateAbreviation: varchar(),
+        stateAbbreviation: varchar(),
         city: varchar(),
         isFeatured: boolean().notNull().default(false),
         locationRequirement: locationRequirementEnum().notNull(),
@@ -45,7 +45,7 @@ export const JobListingTable = pgTable("jobListings", {
     createdAt,
     updatedAt,
 },
-table => [index().on(table.stateAbreviation)])
+table => [index().on(table.stateAbbreviation)])
 
 
 
@@ -53,7 +53,7 @@ export const jobListingRelations = relations(
   JobListingTable,
   ({ one, many }) => ({
     organization: one(organizationTable, {
-      fields: [JobListingTable.organizationId],
+      fields: [JobListingTable.organization],
       references: [organizationTable.id],
     }),
     applications: many(jobListingApplicationTable),
