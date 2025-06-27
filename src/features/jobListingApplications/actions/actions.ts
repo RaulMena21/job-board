@@ -67,7 +67,7 @@ export async function createJobListingApplication(
   }
 }
 
-export async function updateJobListingApplicationStatus(
+export async function updateJobListingApplicationStage(
   {
     jobListingId,
     userId,
@@ -102,7 +102,7 @@ export async function updateJobListingApplicationStatus(
   if (
     orgId == null ||
     jobListing == null ||
-    orgId !== jobListing.organizationId
+    orgId !== jobListing.organization
   ) {
     return {
       error: true,
@@ -157,7 +157,7 @@ export async function updateJobListingApplicationRating(
   if (
     orgId == null ||
     jobListing == null ||
-    orgId !== jobListing.organizationId
+    orgId !== jobListing.organization
   ) {
     return {
       error: true,
@@ -193,7 +193,7 @@ async function getJobListing(id: string) {
 
   return db.query.JobListingTable.findFirst({
     where: eq(JobListingTable.id, id),
-    columns: { organizationId: true },
+    columns: { organization: true },
   })
 }
 
