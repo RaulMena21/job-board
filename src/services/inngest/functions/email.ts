@@ -148,7 +148,7 @@ export const prepareDailyOrganizationUserApplicationNotifications =
       id: "prepare-daily-organization-user-application-notifications",
       name: "Prepare Daily Organization User Application Notifications",
     },
-    { cron: "TZ=America/Chicago 0 7 * * *" },
+    { cron: "TZ=Europe/Madrid 0 7 * * *" },
     async ({ step, event }) => {
       const getUsers = step.run("get-user-settings", async () => {
         return await db.query.organizationUserSettingsTable.findMany({
@@ -158,7 +158,7 @@ export const prepareDailyOrganizationUserApplicationNotifications =
           ),
           columns: {
             userId: true,
-            organization: true,
+            organizationId: true,
             newApplicationEmailNotifications: true,
             minimumRating: true,
           },
@@ -230,7 +230,7 @@ export const prepareDailyOrganizationUserApplicationNotifications =
             .filter(a => {
               return settings.find(
                 s =>
-                  s.organization === a.jobListing.organization.id &&
+                  s.organizationId === a.jobListing.organization.id &&
                   (s.minimumRating == null ||
                     (a.rating ?? 0) >= s.minimumRating)
               )
