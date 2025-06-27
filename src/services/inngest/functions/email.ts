@@ -21,7 +21,7 @@ export const prepareDailyUserJobListingNotifications = inngest.createFunction(
     name: "Prepare Daily User Job Listing Notifications",
   },
   {
-    cron: "TZ=Europe/Madrid 0 7 * * *",
+    cron: "TZ=America/Chicago 0 7 * * *",
   },
   async ({ step, event }) => {
     const getUsers = step.run("get-users", async () => {
@@ -57,7 +57,7 @@ export const prepareDailyUserJobListingNotifications = inngest.createFunction(
           postedAt: false,
           updatedAt: false,
           status: false,
-          organization: false,
+          organizationId: false,
         },
         with: {
           organization: {
@@ -148,7 +148,7 @@ export const prepareDailyOrganizationUserApplicationNotifications =
       id: "prepare-daily-organization-user-application-notifications",
       name: "Prepare Daily Organization User Application Notifications",
     },
-    { cron: "TZ=Europe/Madrid 0 7 * * *" },
+    { cron: "TZ=America/Chicago 0 7 * * *" },
     async ({ step, event }) => {
       const getUsers = step.run("get-user-settings", async () => {
         return await db.query.organizationUserSettingsTable.findMany({
@@ -236,7 +236,7 @@ export const prepareDailyOrganizationUserApplicationNotifications =
               )
             })
             .map(a => ({
-              organization: a.jobListing.organization.id,
+              organizationId: a.jobListing.organization.id,
               organizationName: a.jobListing.organization.name,
               jobListingId: a.jobListing.id,
               jobListingTitle: a.jobListing.title,

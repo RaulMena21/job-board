@@ -102,7 +102,7 @@ export async function updateJobListingApplicationStage(
   if (
     orgId == null ||
     jobListing == null ||
-    orgId !== jobListing.organization
+    orgId !== jobListing.organizationId
   ) {
     return {
       error: true,
@@ -157,7 +157,7 @@ export async function updateJobListingApplicationRating(
   if (
     orgId == null ||
     jobListing == null ||
-    orgId !== jobListing.organization
+    orgId !== jobListing.organizationId
   ) {
     return {
       error: true,
@@ -193,7 +193,7 @@ async function getJobListing(id: string) {
 
   return db.query.JobListingTable.findFirst({
     where: eq(JobListingTable.id, id),
-    columns: { organization: true },
+    columns: { organizationId: true },
   })
 }
 

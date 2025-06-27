@@ -53,7 +53,7 @@ export async function createJobListing(
 
   const jobListing = await insertJobListing({
     ...data,
-    organization: orgId,
+    organizationId: orgId,
     status: "draft",
   })
 
@@ -222,7 +222,7 @@ async function getJobListing(id: string, orgId: string) {
   return db.query.JobListingTable.findFirst({
     where: and(
       eq(JobListingTable.id, id),
-      eq(JobListingTable.organization, orgId)
+      eq(JobListingTable.organizationId, orgId)
     ),
   })
 }

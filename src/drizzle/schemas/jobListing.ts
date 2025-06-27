@@ -28,7 +28,7 @@ export const jobListingTypeEnum = pgEnum("job_listing_type", jobListingTypes);
 
 export const JobListingTable = pgTable("jobListings", {
     id,
-    organization: varchar().references( () => organizationTable.id, 
+    organizationId: varchar().references( () => organizationTable.id, 
     { onDelete: "cascade" }).notNull(),
     title: varchar().notNull(),
     description: text().notNull(),
@@ -53,7 +53,7 @@ export const jobListingRelations = relations(
   JobListingTable,
   ({ one, many }) => ({
     organization: one(organizationTable, {
-      fields: [JobListingTable.organization],
+      fields: [JobListingTable.organizationId],
       references: [organizationTable.id],
     }),
     applications: many(jobListingApplicationTable),

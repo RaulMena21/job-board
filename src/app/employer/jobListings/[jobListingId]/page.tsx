@@ -1,5 +1,5 @@
-import { ActionButton } from "@/components/ActionButton"
-import { AsyncIf } from "@/components/AsyncIf"
+import { ActionButton } from "@/components/actionButton"
+import { AsyncIf } from "@/components/Asyncif"
 import { MarkdownPartial } from "@/components/markdown/markdownPartial"
 import { MarkdownRenderer } from "@/components/markdown/markdownRenderer"
 import { Badge } from "@/components/ui/badge"
@@ -19,14 +19,14 @@ import {
 import {
   ApplicationTable,
   SkeletonApplicationTable,
-} from "@/features/jobListingApplications/components/ApplicationTable"
+} from "@/features/jobListingApplications/components/applicationTable"
 import { getJobListingApplicationJobListingTag } from "@/features/jobListingApplications/db/cache/jobListingApplications"
 import {
   deleteJobListing,
   toggleJobListingFeatured,
   toggleJobListingStatus,
 } from "@/features/jobListings/actions/actions"
-import { JobListingBadges } from "@/features/jobListings/components/JobListingBadges"
+import { JobListingBadges } from "@/features/jobListings/components/jobListingBadges"
 import { getJobListingIdTag } from "@/features/jobListings/db/cache/jobListings"
 import { formatJobListingStatus } from "@/features/jobListings/lib/formatters"
 import {
@@ -339,7 +339,7 @@ async function getJobListingApplications(jobListingId: string) {
         columns: {
           id: true,
           name: true,
-          imageUrl: true,
+          imgUrl: true,
         },
         with: {
           resume: {

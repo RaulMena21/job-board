@@ -30,7 +30,7 @@ type User = {
 
 type Organization = {
   name: string
-  imageUrl: string | null
+  imgUrl: string | null
 }
 
 export function SidebarOrganizationButtonClient({
@@ -116,7 +116,7 @@ function OrganizationInfo({
     <div className="flex items-center gap-2 overflow-hidden">
       <Avatar className="rounded-lg size-8">
         <AvatarImage
-          src={organization.imageUrl ?? undefined}
+          src={organization.imgUrl ?? undefined}
           alt={organization.name}
         />
         <AvatarFallback className="uppercase bg-primary text-primary-foreground">
